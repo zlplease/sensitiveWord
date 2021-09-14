@@ -14,7 +14,6 @@ if __name__ == '__main__':
     for keyword in sensitiveWords:
       test.initWords(keyword.strip())
       finalKey = transform(keyword.strip())
-      test.sensitiveEqual(finalKey)
       for i in finalKey:
         test.generate_dict(i,count)
       count += 1
@@ -28,4 +27,6 @@ if __name__ == '__main__':
 
   #将答案写入特定文件
   with open(sys.argv[3],'a',encoding='utf-8') as w:
-    w.write('hello world!')
+    ans = test.getAnswer()
+    for item in ans:
+      w.write(item + '\n')

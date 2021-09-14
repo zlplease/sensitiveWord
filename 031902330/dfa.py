@@ -1,12 +1,12 @@
 from pypinyin import lazy_pinyin
-from solve import isMatch,  isChinese
+import pypinyin
+from solve import isMatch
 class DFA:
   
   def __init__(self):
     self.keyword_chains = {}
     self.delimit = 'is_end'
     self.answer = []
-    self.sensitiveDic = {}
     self.sensitiveWords = []
     self.total = 0
 
@@ -59,17 +59,13 @@ class DFA:
   #       break
   #   if i == len(word) -1:
   #     level[self.delimit] = True
-      
 
+  def getAnswer(self):
+    self.answer.insert(0, 'Total: ' + str(self.total))
+    return self.answer
 
   def print_dic(self):
-    print(self.sensitiveWords)
-
-  def sensitiveEqual(self,finalKey):
-    for i in range(len(finalKey)):
-      key = finalKey[0]
-      value = finalKey[i]
-      self.sensitiveDic.setdefault(key,[]).append(value)
+    print(self.keyword_chains)
 
   # To Do 同音字和繁体拼音匹配
   def filter(self,text,line):
@@ -81,7 +77,7 @@ class DFA:
       step_ins = 0
       flag = 0
       for char in text[start:]:
-          #匹配
+          #匹配字典树
           if char in level:
               step_ins += 1
               flag = 1
@@ -92,13 +88,40 @@ class DFA:
                   start += step_ins - 1
                   ans = ''.join(ret)
                   x = level[char]['is_end']
-                  print('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
+                  self.answer.append('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
+                  #记录恢复
                   flag = 0
                   ret = []
                   self.total += 1
                   break
           elif not isMatch(char) and flag == 1:
             step_ins += 1
+          #To Do处理同音字以及繁体字
+          elif lazy_pinyin(char)[0][0] in level:
+            pinyin = lazy_pinyin(char)[0]
+            for i in range(len(pinyin)):
+              if pinyin[i] in level:
+                if self.delimit not in level[pinyin[i]]:
+                  level = level[pinyin[i]]
+                elif ((self.delimit in level[pinyin[i]]) and (i == len(pinyin) -1)):
+                # else:
+                  # print((self.delimit in level[pinyin[i]]) and i == len(pinyin) -1)
+                  # print(pinyin[i])
+                  # print(pinyin[i] in level)
+                  # print(i)
+                  step_ins += 1
+                  ret.append(text[start:start+step_ins])
+                  start += step_ins - 1
+                  ans = ''.join(ret)
+                  x = level[pinyin[i]]['is_end']
+                  print('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
+                  ret = []
+                  flag = 0
+                  self.total += 1
+                  break
+              else:
+                break
+               
           else:
             flag = 0
             break
