@@ -10,16 +10,21 @@ if __name__ == '__main__':
   #读入敏感词
   with open(sys.argv[1],'r',encoding='utf-8') as f:
     sensitiveWords = f.readlines()
+    count = 0
     for keyword in sensitiveWords:
+      test.initWords(keyword.strip())
       finalKey = transform(keyword.strip())
+      test.sensitiveEqual(finalKey)
       for i in finalKey:
-        test.generate_dict(i)
+        test.generate_dict(i,count)
+      count += 1
+    #test.print_dic()
 
   #读入待检测文本
   with open(sys.argv[2],'r',encoding='utf-8') as f:
     detectedText = f.readlines()
     for i in range(len(detectedText)):
-      print(detectedText[i].strip())
+      test.filter(detectedText[i].strip(),i+1)
 
   #将答案写入特定文件
   with open(sys.argv[3],'a',encoding='utf-8') as w:

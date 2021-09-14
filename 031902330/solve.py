@@ -1,7 +1,6 @@
 from pypinyin import lazy_pinyin
 from itertools import product
 from os import path
-import sys
 import json
 
 
@@ -19,14 +18,12 @@ def isMatch(word):
     return True
 
 #初始化文本
-def initText(texts):
-  initText = []
+def initText(text):
 
-  for index, item in enumerate(texts):
-    for index1, ch in enumerate(item):
-      if not isMatch(ch):
-        item = item.replace(ch,'')
-    initText.append(item)
+  for index, item in enumerate(text):
+    if not isMatch(item):
+      text = text.replace(item, '')
+  return text
 
 #针对统一敏感词不同情况扩充树
 def forest(sameDic):
@@ -42,6 +39,7 @@ def forest(sameDic):
     for item in forest[i]:
       newWord += item
     finalDic.append(newWord)
+  # return forest
   return finalDic
 
 def transform(words):
