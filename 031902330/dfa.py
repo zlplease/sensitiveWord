@@ -1,5 +1,6 @@
 from pypinyin import lazy_pinyin
 from solve import isMatch
+
 class DFA:
   
   def __init__(self):
@@ -7,10 +8,12 @@ class DFA:
     self.delimit = 'is_end'
     self.answer = []
     self.sensitiveWords = []
+    self.counts = []
     self.total = 0
 
   def initWords(self,word):
     self.sensitiveWords.append(word)
+    self.counts.append(0)
 
   #构建嵌套字典
   # def generate_dict(self, word,count):
@@ -113,7 +116,7 @@ class DFA:
     return self.answer
 
   def print_dic(self):
-    print(self.keyword_chains)
+    print(self.counts)
 
   # To Do 同音字和繁体拼音匹配
   def filter(self,texts,line):
@@ -136,6 +139,7 @@ class DFA:
             start += step_ins - 1
             ans = ''.join(ret)
             x = level[char]['is_end']
+            self.counts[x] += 1
             self.answer.append('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
             #记录恢复
             flag = 0
@@ -153,6 +157,7 @@ class DFA:
             start += step_ins - 1
             ans = ''.join(ret)
             x = level[pinyin]['is_end']
+            self.counts[x] += 1
             self.answer.append('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
             #记录恢复
             flag = 0

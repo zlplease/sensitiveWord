@@ -3,6 +3,7 @@ import os
 from dfa import DFA
 from pypinyin import lazy_pinyin
 from solve import transform
+from wordCloud import wordCloud
 
 if __name__ == '__main__':
 
@@ -28,10 +29,12 @@ if __name__ == '__main__':
     detectedText = f.readlines()
     for i in range(len(detectedText)):
       test.filter(detectedText[i].strip(),i+1)
-    # test.filter('法轮工和胡玲莎都是软性子，全然没觉得苏雅这样有什么不好。相视一笑，就跟在了苏雅身后。'.strip(),0)
 
   #将答案写入特定文件
   with open(sys.argv[3],'a',encoding='utf-8') as w:
     ans = test.getAnswer()
     for item in ans:
       w.write(item + '\n')
+
+  #渲染词云图
+  #wordCloud(test.sensitiveWords,test.counts)

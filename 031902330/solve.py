@@ -16,14 +16,6 @@ def isMatch(word):
   if word == '/n':
     return True
 
-#初始化文本
-def initText(text):
-
-  for index, item in enumerate(text):
-    if not isMatch(item):
-      text = text.replace(item, '')
-  return text
-
 #针对统一敏感词不同情况扩充树
 def forest(sameDic):
   forest = []
@@ -57,20 +49,14 @@ def transform(words):
       with open(path.join(path.dirname(__file__), 'chai_zi.json'), 'r', encoding='utf-8') as f:
         #读入json，将字符串转换为字典
         sideDic = json.load(f)
-      if sideDic[word]:
+      if word in sideDic:
         value = sideDic[word]
-      sameDic.setdefault(key,[]).append(value)
+        sameDic.setdefault(key,[]).append(value)
     else:
       #字母大小写同类
       key = word.lower()
       value = key
       sameDic.setdefault(key,[]).append(value)
       value = key.upper()
-      sameDic.setdefault(key,[]).append(value)
-      
+      sameDic.setdefault(key,[]).append(value) 
   return forest(sameDic)
-
-# print(type(lazy_pinyin('和')[0]))
-# print(lazy_pinyin('氵')[0])
-# print(lazy_pinyin('功')[0])
-# print(type('和'))
