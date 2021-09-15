@@ -3,9 +3,6 @@ from itertools import product
 from os import path
 import json
 
-import pypinyin
-
-
 #根据unicode判断是否为汉字
 def isChinese(word):
   return '\u4e00' <= word <= '\u9fff'
@@ -74,5 +71,6 @@ def transform(words):
   return forest(sameDic)
 
 # print(type(lazy_pinyin('和')[0]))
-# print(lazy_pinyin('和')[0])
+# print(lazy_pinyin('氵')[0])
+# print(lazy_pinyin('功')[0])
 # print(type('和'))

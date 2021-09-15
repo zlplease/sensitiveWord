@@ -14,10 +14,12 @@ if __name__ == '__main__':
     for keyword in sensitiveWords:
       test.initWords(keyword.strip())
       finalKey, pinyinKey = transform(keyword.strip())
-      for i in finalKey:
-        test.generate_dict(i,count)
       for i in pinyinKey:
         test.generate_dict1(i,count)
+      for i in finalKey:
+        test.generate_dict(i,count)
+      # for i in pinyinKey:
+      #   test.generate_dict1(i,count)
       count += 1
     #test.print_dic()
 
@@ -26,6 +28,7 @@ if __name__ == '__main__':
     detectedText = f.readlines()
     for i in range(len(detectedText)):
       test.filter(detectedText[i].strip(),i+1)
+    # test.filter('法轮工和胡玲莎都是软性子，全然没觉得苏雅这样有什么不好。相视一笑，就跟在了苏雅身后。'.strip(),0)
 
   #将答案写入特定文件
   with open(sys.argv[3],'a',encoding='utf-8') as w:
