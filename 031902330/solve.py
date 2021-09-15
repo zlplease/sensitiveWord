@@ -42,7 +42,7 @@ def forest(sameDic):
       newWord += item
     finalDic.append(newWord)
   # return forest
-  return finalDic
+  return finalDic, forest
 
 def transform(words):
   sameDic = {}
@@ -73,4 +73,6 @@ def transform(words):
       
   return forest(sameDic)
 
-# print(lazy_pinyin('和')[0][0])
+# print(type(lazy_pinyin('和')[0]))
+# print(lazy_pinyin('和')[0])
+# print(type('和'))

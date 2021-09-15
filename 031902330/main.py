@@ -13,9 +13,11 @@ if __name__ == '__main__':
     count = 0
     for keyword in sensitiveWords:
       test.initWords(keyword.strip())
-      finalKey = transform(keyword.strip())
+      finalKey, pinyinKey = transform(keyword.strip())
       for i in finalKey:
         test.generate_dict(i,count)
+      for i in pinyinKey:
+        test.generate_dict1(i,count)
       count += 1
     #test.print_dic()
 
