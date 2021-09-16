@@ -48,7 +48,7 @@ class Test(unittest.TestCase):
     def test_IOError(self):
         try:
             with open(path.join(path.dirname(__file__), 'chai_zi.json'), 'r', encoding='utf-8') as f:
-                f.close()
+                pass
         except IOError:
             print('IOError:未找到文件或读取文件失败')
         else:

@@ -11,7 +11,7 @@ def initData(words, counts):
 
 def wordCloud(words, counts) -> WordCloud:
     initData(words, counts)
-    c = (
+    final = (
         WordCloud()
             .add(series_name="敏感词统计", data_pair=data, shape="circle", word_size_range=[6, 66])
             .set_global_opts(
@@ -22,4 +22,4 @@ def wordCloud(words, counts) -> WordCloud:
         )
             .render("sensitiveWordCloud.html")
     )
-    return c
+    return final
