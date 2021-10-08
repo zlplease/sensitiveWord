@@ -141,7 +141,7 @@ class DFA:
                         ans = ''.join(ret)
                         x = level[char]['is_end']
                         self.counts[x] += 1
-                        self.answer.append('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
+                        self.answer.append('Line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
                         # 记录恢复
                         flag = 0
                         ret = []
@@ -159,7 +159,7 @@ class DFA:
                         ans = ''.join(ret)
                         x = level[pinyin]['is_end']
                         self.counts[x] += 1
-                        self.answer.append('line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
+                        self.answer.append('Line' + str(line) + ':' + ' <' + self.sensitiveWords[x] + '> ' + ans)
                         # 记录恢复
                         flag = 0
                         ret = []
